@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import geekbarains.material.R
+import geekbarains.material.ui.chips.ChipsFragment
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -19,13 +19,15 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.bottom_navigation_layout, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         navigation_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_one -> Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
-                R.id.navigation_two -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                R.id.navigation_one -> activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, MainFragment())?.addToBackStack(null)?.commit()
+                R.id.navigation_two -> activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
             }
             true
         }
