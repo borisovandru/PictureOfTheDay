@@ -1,4 +1,4 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import geekbarains.material.R
-import geekbarains.material.ui.chips.ChipsFragment
+import geekbarains.material.view.mainfragment.MainFragment
+import geekbarains.material.view.chips.ChipsFragment
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -14,7 +15,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.bottom_navigation_layout, container, false)
     }
@@ -23,6 +24,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navigation_view.setNavigationItemSelectedListener { menuItem ->
+
             when (menuItem.itemId) {
                 R.id.navigation_one -> activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, MainFragment())?.addToBackStack(null)?.commit()

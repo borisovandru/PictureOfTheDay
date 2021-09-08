@@ -1,9 +1,9 @@
-package geekbarains.material.ui
+package geekbarains.material.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import geekbarains.material.R
-import geekbarains.material.ui.picture.MainFragment
+import geekbarains.material.view.mainfragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
