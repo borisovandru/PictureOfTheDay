@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -18,18 +19,14 @@ import geekbarains.material.ui.MainActivity
 import geekbarains.material.ui.chips.ChipsFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
-class PictureOfTheDayFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProviders.of(this).get(PictureOfTheDayViewModel::class.java)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
-            .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
-    }
+    private lateinit var view1: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +37,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        view1 = view
         input_layout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
@@ -57,7 +56,8 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
+            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
+                ?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
@@ -78,10 +78,15 @@ class PictureOfTheDayFragment : Fragment() {
                 } else {
                     //showSuccess()
                     image_view.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
+                        lifecycle(this@MainFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
+                    val bsc = view1.findViewById(R.id.bottom_sheet_container) as View
+                    val header = bsc.findViewById<TextView>(R.id.bottom_sheet_description_header)
+                    header.setText(serverResponseData.title)
+                    val body = bsc.findViewById<TextView>(R.id.bottom_sheet_description)
+                    body.setText(serverResponseData.explanation)
                 }
             }
             is PictureOfTheDayData.Loading -> {
@@ -129,7 +134,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance() = MainFragment()
         private var isMain = true
     }
 }
