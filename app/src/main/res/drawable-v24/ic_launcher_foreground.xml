@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
+    android:width="200dp"
+    android:height="200dp"
     android:tint="#FFFFFF"
     android:viewportWidth="108"
     android:viewportHeight="108">
     <group
         android:scaleX="0.0786076"
         android:scaleY="0.0786076"
-        android:translateX="29.16"
-        android:translateY="47.373013">
+        android:translateX="43.00"
+        android:translateY="47.00">
         <group android:translateY="106.94531">
             <path
                 android:fillColor="#FFFFFF"
@@ -23,15 +23,6 @@
             <path
                 android:fillColor="#FFFFFF"
                 android:pathData="M315.5,0L301.85938,0L295.59375,-20L256.92188,-20L250.51562,0L237.5,0L268.40625,-92L285.5625,-92L315.5,0ZM292.15625,-31L276.5,-81.078125L260.45312,-31L292.15625,-31Z" />
-            <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M473.5,0L459.85938,0L453.59375,-20L414.92188,-20L408.51562,0L395.5,0L426.40625,-92L443.5625,-92L473.5,0ZM450.15625,-31L434.5,-81.078125L418.45312,-31L450.15625,-31Z" />
-            <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M546,-63.84375Q546,-58.203125,543.875,-52.671875Q541.7656,-47.15625,537.3125,-42.78125Q532.875,-38.421875,525.9531,-35.703125Q519.03125,-33,509.4375,-33L498,-33L498,0L485,0L485,-92L511.15625,-92Q518.0625,-92,524.3906,-90.484375Q530.71875,-88.96875,535.5156,-85.59375Q540.3125,-82.21875,543.15625,-76.859375Q546,-71.515625,546,-63.84375ZM532,-63.640625Q532,-72.53125,526.3281,-77.265625Q520.6719,-82,510.5,-82L498,-82L498,-44L509.40625,-44Q520.25,-44,526.125,-48.875Q532,-53.75,532,-63.640625Z" />
-            <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M586,-81L565,-81L565,-92L620,-92L620,-81L599,-81L599,-11L620,-11L620,0L565,0L565,-11L586,-11L586,-81Z" />
         </group>
     </group>
 </vector>
