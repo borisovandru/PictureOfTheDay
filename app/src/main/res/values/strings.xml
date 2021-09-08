@@ -9,4 +9,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="two_yesterday">Позавчерашнее</string>
+    <string name="yesterday">Вчерашнее</string>
+    <string name="today">Сегодняшнее</string>
+    <string name="blankAPIKey">You need API key</string>
+    <string name="undefError">Unidentified error</string>
+    <string name="dateFormat">yyyy-MM-dd</string>
+    <string name="emptyLink">Link is empty</string>
 </resources>

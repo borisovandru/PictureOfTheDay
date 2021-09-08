@@ -64,8 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chip icon"
-            app:iconStartPadding="10dp"
-            app:chipIcon="@drawable/ic_archive" />
+            app:chipIcon="@drawable/ic_archive"
+            app:iconStartPadding="10dp" />
     </LinearLayout>
 
     <com.google.android.material.chip.ChipGroup
