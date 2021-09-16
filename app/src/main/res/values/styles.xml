@@ -18,6 +18,7 @@
         <item name="rippleColor">@color/color_green</item>
     </style>
 
+
     <style name="ChipChoiceMars" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textColor">@color/color_white</item>
         <item name="chipBackgroundColor">@color/bg_chip_state_list_mars</item>
@@ -57,11 +58,12 @@
         <item name="android:forceDarkAllowed">true</item>
     </style>
 
+
     <style name="AppThemeMars" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/LightSalmon</item>
         <item name="colorPrimaryVariant">@color/LightSalmon</item>
-        <item name="android:colorBackground">@color/LightSalmon</item>
+        <item name="android:colorBackground">@color/color_red</item>
         <item name="fontFamily">@font/rotarfihs</item>
     </style>
 
@@ -69,7 +71,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_green</item>
         <item name="colorPrimaryVariant">@color/color_green</item>
-        <item name="android:colorBackground">@color/color_green</item>
+        <item name="android:colorBackground">@color/colorAccent</item>
         <item name="colorOnBackground">@color/color_green</item>
         <item name="fontFamily">@font/inverkrug</item>
     </style>
@@ -78,7 +80,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_white</item>
         <item name="colorPrimaryVariant">@color/color_white</item>
-        <item name="android:colorBackground">@color/color_white</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="colorOnBackground">@color/color_white</item>
         <item name="fontFamily">@font/fontick</item>
     </style>
