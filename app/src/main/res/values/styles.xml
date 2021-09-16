@@ -1,38 +1,22 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">#0039CB</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="colorError">#F44336</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#212121</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="colorOnBackground">#212121</item>
-        <item name="materialButtonStyle">@style/AppButton</item>
-        <item name="textInputStyle">@style/AppTextField</item>
-        <item name="materialCardViewStyle">@style/AppCard</item>
-    </style>
+
     <style name="AppButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">?attr/colorSecondary</item>
     </style>
+
     <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundColor">@color/text_field_background</item>
     </style>
+
     <style name="AppCard" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">8dp</item>
     </style>
+
     <style name="ChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textColor">@color/color_white</item>
         <item name="chipBackgroundColor">@color/bg_chip_state_list</item>
         <item name="rippleColor">@color/color_green</item>
     </style>
-
 
     <style name="ChipChoiceMars" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textColor">@color/color_white</item>
@@ -52,8 +36,7 @@
         <item name="rippleColor">@color/color_yellow</item>
     </style>
 
-
-    <style name="AppThemeMars" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/LightSalmon</item>
         <item name="colorPrimaryVariant">@color/LightSalmon</item>
@@ -70,44 +53,34 @@
         <item name="materialButtonStyle">@style/AppButton</item>
         <item name="textInputStyle">@style/AppTextField</item>
         <item name="materialCardViewStyle">@style/AppCard</item>
+        <item name="fontFamily">@font/rotarfihs</item>
+        <item name="android:forceDarkAllowed">true</item>
     </style>
 
-    <style name="AppThemeEarth" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppThemeMars" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/LightSalmon</item>
+        <item name="colorPrimaryVariant">@color/LightSalmon</item>
+        <item name="android:colorBackground">@color/LightSalmon</item>
+        <item name="fontFamily">@font/rotarfihs</item>
+    </style>
+
+    <style name="AppThemeEarth" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_green</item>
         <item name="colorPrimaryVariant">@color/color_green</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">#0039CB</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="colorError">@color/color_green</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#212121</item>
         <item name="android:colorBackground">@color/color_green</item>
         <item name="colorOnBackground">@color/color_green</item>
-        <item name="materialButtonStyle">@style/AppButton</item>
-        <item name="textInputStyle">@style/AppTextField</item>
-        <item name="materialCardViewStyle">@style/AppCard</item>
+        <item name="fontFamily">@font/inverkrug</item>
     </style>
 
-    <style name="AppThemeMoon" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppThemeMoon" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_white</item>
         <item name="colorPrimaryVariant">@color/color_white</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/colorAccent</item>
-        <item name="colorSecondaryVariant">#0039CB</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="colorError">@color/color_white</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#212121</item>
         <item name="android:colorBackground">@color/color_white</item>
         <item name="colorOnBackground">@color/color_white</item>
-        <item name="materialButtonStyle">@style/AppButton</item>
-        <item name="textInputStyle">@style/AppTextField</item>
-        <item name="materialCardViewStyle">@style/AppCard</item>
+        <item name="fontFamily">@font/fontick</item>
     </style>
 
 </resources>
