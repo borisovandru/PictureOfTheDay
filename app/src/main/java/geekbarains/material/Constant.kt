@@ -6,4 +6,5 @@ object Constant {
     const val MEDIA_TYPE: String = "image"
     const val TOAST_GRAVITY_OFFSET_X: Int = 0
     const val TOAST_GRAVITY_OFFSET_Y: Int = 250
+    const val NAME_SHARED_PREFERENCE = "Settings"
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import geekbarains.material.R
 import geekbarains.material.view.mainfragment.MainFragment
-import geekbarains.material.view.chips.ChipsFragment
+import geekbarains.material.view.settings.SettingsFragment
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -29,7 +29,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_one -> activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, MainFragment())?.addToBackStack(null)?.commit()
                 R.id.navigation_two -> activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
+                    ?.replace(R.id.container, SettingsFragment())?.addToBackStack(null)?.commit()
             }
             true
         }
