@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_chips.*
 
 class SettingsFragment : Fragment() {
 
-    var checkTheme = false
+    private var checkTheme = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class SettingsFragment : Fragment() {
             ).show()
         }
 
-        val chipGroupTheme = view.findViewById<ChipGroup>(R.id.chipGroupTheme)
+        view.findViewById<ChipGroup>(R.id.chipGroupTheme)
 
         chipMars.setOnClickListener {
             setTheme(R.style.AppThemeMars)
