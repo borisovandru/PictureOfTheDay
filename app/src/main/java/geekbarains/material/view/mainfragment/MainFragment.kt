@@ -4,29 +4,24 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.webkit.RenderProcessGoneDetail
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
-import com.google.android.material.bottomappbar.BottomAppBar
+import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
-import geekbarains.material.Constant.MEDIA_TYPE
-import geekbarains.material.Constant.TOAST_GRAVITY_OFFSET_X
-import geekbarains.material.Constant.TOAST_GRAVITY_OFFSET_Y
+import geekbarains.material.Constant
+import geekbarains.material.Constant.MEDIA_TYPE_IMAGE
 import geekbarains.material.Constant.WIKI_URL
 import geekbarains.material.R
-import geekbarains.material.model.AppState
-import geekbarains.material.view.BottomNavigationDrawerFragment
-import geekbarains.material.view.MainActivity
-import geekbarains.material.view.settings.SettingsFragment
-import geekbarains.material.viewmodel.MainFragmentViewModel
-import kotlinx.android.synthetic.main.fragment_chips.*
+import geekbarains.material.util.toast
+import geekbarains.material.viewmodel.mainfragment.MainFragmentViewModel
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.main_fragment.chipGroup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,6 +44,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        webView.webViewClient = MyWebViewClient()
+        webView.settings.javaScriptEnabled = true
+
         viewModel.getData(null)
             .observe(viewLifecycleOwner, { renderData(it) })
 
@@ -59,7 +57,7 @@ class MainFragment : Fragment() {
         chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
                 val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
-                val cal = Calendar.getInstance()
+                val cal = Calendar.getInstance(TimeZone.getTimeZone(Constant.NASA_TIME_ZONE))
 
                 when (position) {
                     1 -> cal.add(Calendar.DAY_OF_YEAR, -2)
@@ -78,7 +76,6 @@ class MainFragment : Fragment() {
                 data = Uri.parse(WIKI_URL + input_edit_text.text.toString())
             })
         }
-        setBottomAppBar(view)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -86,41 +83,32 @@ class MainFragment : Fragment() {
         inflater.inflate(R.menu.menu_bottom_bar, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
-            R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
-                ?.add(R.id.container, SettingsFragment())?.addToBackStack(null)?.commit()
-            android.R.id.home -> {
-                activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
-                }
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun renderData(data: AppState) {
+    private fun renderData(data: geekbarains.material.model.AppState) {
         when (data) {
-            is AppState.Success -> {
+            is geekbarains.material.model.AppState.Success -> {
                 val serverResponseData = data.serverResponseData
-                val url: String? = if (serverResponseData.mediaType == MEDIA_TYPE) {
-                    serverResponseData.url
-                } else {
-                    serverResponseData.thumbs
-                }
+
                 val bsc = mainFragmentView.findViewById(R.id.bottom_sheet_container) as View
+
+                val url: String?
+
+                if (serverResponseData.mediaType != MEDIA_TYPE_IMAGE
+                    && serverResponseData.url != null) {
+                    webView.visibility = View.VISIBLE
+                    webView.loadUrl(serverResponseData.url)
+                    image_view.visibility = View.INVISIBLE
+                    url = serverResponseData.thumbs
+                } else {
+                    webView.visibility = View.INVISIBLE
+                    image_view.visibility = View.VISIBLE
+                    image_view.load(serverResponseData.url)
+                    url = serverResponseData.url
+                }
+
                 if (url.isNullOrEmpty()) {
                     bsc.visibility = View.GONE
                     toast(getString(R.string.emptyLink))
                 } else {
-
-                    image_view.load(url) {
-                        lifecycle(this@MainFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                    }
-
                     bsc.visibility = View.VISIBLE
                     val header = bsc.findViewById<TextView>(R.id.bottom_sheet_description_header)
                     header.text = serverResponseData.title
@@ -128,32 +116,10 @@ class MainFragment : Fragment() {
                     body.text = serverResponseData.explanation
                 }
             }
-            is AppState.Loading -> {
+            is geekbarains.material.model.AppState.Loading -> {
             }
-            is AppState.Error -> {
+            is geekbarains.material.model.AppState.Error -> {
                 toast(data.error.message)
-            }
-        }
-    }
-
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
-        setHasOptionsMenu(true)
-        fab.setOnClickListener {
-            if (isMain) {
-                isMain = false
-                bottom_app_bar.navigationIcon = null
-                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
-                bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-            } else {
-                isMain = true
-                bottom_app_bar.navigationIcon =
-                    ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
-                bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
-                bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }
     }
@@ -164,15 +130,32 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun Fragment.toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.BOTTOM, TOAST_GRAVITY_OFFSET_X, TOAST_GRAVITY_OFFSET_Y)
-            show()
-        }
-    }
-
     companion object {
         fun newInstance() = MainFragment()
-        private var isMain = true
+    }
+
+    private inner class MyWebViewClient : WebViewClient() {
+
+        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            return true
+        }
+
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): Boolean {
+            return true
+        }
+
+        override fun onRenderProcessGone(
+            view: WebView?,
+            detail: RenderProcessGoneDetail?
+        ): Boolean {
+            return super.onRenderProcessGone(view, detail)
+        }
+
+        override fun onUnhandledKeyEvent(view: WebView?, event: KeyEvent?) {
+            super.onUnhandledKeyEvent(view, event)
+        }
     }
 }

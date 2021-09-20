@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Material</string>
+    <string name="app_name">PictureOfTheDay</string>
     <string name="photo_of_the_day_stub">Photo of the day</string>
     <string name="search_wiki">Найти в Википедии</string>
     <string name="wiki_helper_text">Поищите термин в википедии</string>
@@ -15,6 +15,14 @@
     <string name="blankAPIKey">You need API key</string>
     <string name="undefError">Unidentified error</string>
     <string name="dateFormat">yyyy-MM-dd</string>
+    <string name="dateFormatYear">yyyy</string>
+    <string name="dateFormatMonth">MM</string>
+    <string name="dateFormatDay">dd</string>
     <string name="emptyLink">Link is empty</string>
     <string name="ThemeId">ThemeId</string>
+    <string name="Settings">Настройки</string>
+    <string name="Earth">Замля</string>
+    <string name="Planets">Планеты</string>
+    <string name="TPOD">Картинка дня</string>
+    <string name="Mars">Марс</string>
 </resources>

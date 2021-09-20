@@ -2,7 +2,7 @@ package geekbarains.material
 
 import android.app.Application
 
-class App : Application() {
+class PictureOfTheDay : Application() {
 
     private var appInstance: Application? = null
 

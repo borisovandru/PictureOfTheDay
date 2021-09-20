@@ -1,25 +1,22 @@
-package geekbarains.material.viewmodel
+package geekbarains.material.viewmodel.mainfragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import geekbarains.material.App
 import geekbarains.material.BuildConfig
 import geekbarains.material.R
-import geekbarains.material.model.AppState
-import geekbarains.material.model.repository.NasaAPIImpl
-import geekbarains.material.model.retrofit.APODServerResponseData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import geekbarains.material.model.retrofit.APODServerResponseData
 
 class MainFragmentViewModel(
-    private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    private val retrofitImpl: NasaAPIImpl = NasaAPIImpl(),
+    private val liveDataForViewToObserve: MutableLiveData<geekbarains.material.model.AppState> = MutableLiveData(),
+    private val retrofitImpl: geekbarains.material.model.repository.NasaAPIImpl = geekbarains.material.model.repository.NasaAPIImpl(),
 ) :
     ViewModel() {
 
-    fun getData(itemDate: String?): LiveData<AppState> {
+    fun getData(itemDate: String?): LiveData<geekbarains.material.model.AppState> {
         sendServerRequest(itemDate)
         return liveDataForViewToObserve
     }
@@ -32,48 +29,40 @@ class MainFragmentViewModel(
         ) {
             if (response.isSuccessful && response.body() != null) {
                 liveDataForViewToObserve.value =
-                    AppState.Success(response.body()!!)
+                    geekbarains.material.model.AppState.Success(response.body()!!)
             } else {
                 val message = response.message()
                 if (message.isNullOrEmpty()) {
 
-                    val gv: App? = null
+                    val gv: geekbarains.material.PictureOfTheDay? = null
                     if (gv != null) {
                         gv.getApplication()
                         liveDataForViewToObserve.value =
-                            AppState.Error(
-                                Throwable(
-                                    gv.getApplication()
-                                        ?.getString(R.string.undefError)
-                                )
-                            )
+                            geekbarains.material.model.AppState.Error(Throwable(gv.getApplication()
+                                ?.getString(R.string.undefError)))
                     }
                 } else {
                     liveDataForViewToObserve.value =
-                        AppState.Error(Throwable(message))
+                        geekbarains.material.model.AppState.Error(Throwable(message))
                 }
             }
         }
 
         override fun onFailure(call: Call<APODServerResponseData>, t: Throwable) {
-            liveDataForViewToObserve.value = AppState.Error(t)
+            liveDataForViewToObserve.value = geekbarains.material.model.AppState.Error(t)
         }
     }
 
     private fun sendServerRequest(itemDate: String?) {
-        liveDataForViewToObserve.value = AppState.Loading(null)
+        liveDataForViewToObserve.value = geekbarains.material.model.AppState.Loading(null)
         val apiKey: String = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
-            val gv: App? = null
+            val gv: geekbarains.material.PictureOfTheDay? = null
             if (gv != null) {
                 gv.getApplication()
                 liveDataForViewToObserve.value =
-                    AppState.Error(
-                        Throwable(
-                            gv.getApplication()
-                                ?.getString(R.string.blankAPIKey)
-                        )
-                    )
+                    geekbarains.material.model.AppState.Error(Throwable(gv.getApplication()
+                        ?.getString(R.string.blankAPIKey)))
             }
         } else {
             retrofitImpl.getPictureOfDayRetroFit(itemDate, callBack)

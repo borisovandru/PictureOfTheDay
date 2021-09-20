@@ -2,11 +2,16 @@ package geekbarains.material.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import geekbarains.material.R
 import geekbarains.material.util.sharedpref.SharedPref
-import geekbarains.material.view.mainfragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavController
 
     private fun constToStyle(const: Int): Int {
         return when (const) {
@@ -19,13 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val settings = SharedPref(this).loadSettings()
         setTheme(constToStyle(settings.themeId))
         setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
-        }
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        navController = navHostFragment.navController
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.setupWithNavController(navController)
+
+        bottomNavigationView.setupWithNavController(navController)
     }
 }
