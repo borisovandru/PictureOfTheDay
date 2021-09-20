@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorSecondaryLight">#0000FF</color>
     <color name="colorAccent">#2962FF</color>
+    <color name="colorAccent40Alfa">#662962FF</color>
     <color name="color_gray">#66000000</color>
     <color name="color_red">#FF0000</color>
     <color name="LightSalmon">#FFA07A</color>
-    <color name="color_green">#00FF00</color>
+    <color name="color_green_light">#9AF196</color>
     <color name="color_blue">#0000FF</color>
     <color name="color_white">#FFFFFF</color>
     <color name="color_black">#000000</color>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -10,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Тема" />
+        android:text="Тема"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,32 +28,29 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipMars"
                 style="@style/ChipChoiceMars"
+                android:id="@+id/chipMars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="Марс"
-                android:text="Марс"
-                tools:ignore="TextContrastCheck" />
+                android:text="Марс" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipEarth"
                 style="@style/ChipChoiceEarth"
+                android:id="@+id/chipEarth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="Земля"
-                android:text="Земля"
-                tools:ignore="TextContrastCheck" />
+                android:text="Земля" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipMoon"
                 style="@style/ChipChoiceMoon"
+                android:id="@+id/chipMoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:tag="Луна"
-                android:text="Луна"
-                android:textColor="#263238" />
+                android:text="Луна" />
         </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>
@@ -129,14 +125,12 @@
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chip"
-            tools:ignore="DuplicateSpeakableTextCheck" />
+            android:text="Chip" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group"
-            tools:ignore="DuplicateSpeakableTextCheck" />
+            android:text="Group" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
@@ -208,8 +202,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="in"
-                tools:ignore="TextContrastCheck" />
+                android:text="in" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"

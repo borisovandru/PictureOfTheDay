@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import geekbarains.material.R
-import geekbarains.material.model.Settings
-import geekbarains.material.util.sharedpref.SharedPref
 import kotlinx.android.synthetic.main.fragment_chips.*
+import kotlinx.android.synthetic.main.fragment_chips.chipGroup
+import geekbarains.material.util.sharedpref.SharedPref
 
 class SettingsFragment : Fragment() {
 
@@ -44,8 +43,6 @@ class SettingsFragment : Fragment() {
             ).show()
         }
 
-        view.findViewById<ChipGroup>(R.id.chipGroupTheme)
-
         chipMars.setOnClickListener {
             setTheme(R.style.AppThemeMars)
         }
@@ -57,6 +54,7 @@ class SettingsFragment : Fragment() {
         chipMoon.setOnClickListener {
             setTheme(R.style.AppThemeMoon)
         }
+
     }
 
     private fun styleToConst(style: Int): Int {
@@ -69,7 +67,8 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setTheme(style: Int) {
-        SharedPref(requireContext()).saveSettings(Settings(styleToConst(style)))
+        SharedPref(requireContext()).saveSettings(geekbarains.material.model.Settings(styleToConst(
+            style)))
         requireActivity().setTheme(style)
         requireActivity().recreate()
     }
