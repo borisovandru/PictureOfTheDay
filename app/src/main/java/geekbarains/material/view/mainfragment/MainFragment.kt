@@ -8,26 +8,23 @@ import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.main_fragment.*
 import geekbarains.material.Constant
 import geekbarains.material.Constant.MEDIA_TYPE_IMAGE
 import geekbarains.material.Constant.WIKI_URL
 import geekbarains.material.R
+import geekbarains.material.util.OnSwipeTouchListener
 import geekbarains.material.util.toast
 import geekbarains.material.viewmodel.mainfragment.MainFragmentViewModel
-import kotlinx.android.synthetic.main.main_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainFragment : Fragment() {
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: MainFragmentViewModel by lazy {
         ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
@@ -38,7 +35,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.main_fragment_start, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +47,17 @@ class MainFragment : Fragment() {
         viewModel.getData(null)
             .observe(viewLifecycleOwner, { renderData(it) })
 
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        wiki_button.setOnTouchListener (object : OnSwipeTouchListener(requireActivity()) {
+            override fun onSwipeLeft() {
+                super.onSwipeLeft()
+                motionLayout.transitionToEnd()
+            }
+
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                motionLayout.transitionToStart()
+            }
+        })
 
         mainFragmentView = view
 
@@ -85,10 +92,10 @@ class MainFragment : Fragment() {
 
     private fun renderData(data: geekbarains.material.model.AppState) {
         when (data) {
-            is geekbarains.material.model.AppState.Success -> {
+            is geekbarains.material.model.AppState.SuccessAPOD -> {
                 val serverResponseData = data.serverResponseData
 
-                val bsc = mainFragmentView.findViewById(R.id.bottom_sheet_container) as View
+                //val bsc = mainFragmentView.findViewById(R.id.bottom_sheet_container) as View
 
                 val url: String?
 
@@ -106,14 +113,16 @@ class MainFragment : Fragment() {
                 }
 
                 if (url.isNullOrEmpty()) {
-                    bsc.visibility = View.GONE
+                    //bsc.visibility = View.GONE
                     toast(getString(R.string.emptyLink))
                 } else {
-                    bsc.visibility = View.VISIBLE
+                    /*bsc.visibility = View.VISIBLE
                     val header = bsc.findViewById<TextView>(R.id.bottom_sheet_description_header)
                     header.text = serverResponseData.title
                     val body = bsc.findViewById<TextView>(R.id.bottom_sheet_description)
-                    body.text = serverResponseData.explanation
+                    body.text = serverResponseData.explanation*/
+                    header.text = serverResponseData.title
+                    description.text = serverResponseData.explanation
                 }
             }
             is geekbarains.material.model.AppState.Loading -> {
@@ -124,15 +133,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
-    }
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+    companion object;
 
     private inner class MyWebViewClient : WebViewClient() {
 
@@ -142,14 +143,14 @@ class MainFragment : Fragment() {
 
         override fun shouldOverrideUrlLoading(
             view: WebView?,
-            request: WebResourceRequest?
+            request: WebResourceRequest?,
         ): Boolean {
             return true
         }
 
         override fun onRenderProcessGone(
             view: WebView?,
-            detail: RenderProcessGoneDetail?
+            detail: RenderProcessGoneDetail?,
         ): Boolean {
             return super.onRenderProcessGone(view, detail)
         }

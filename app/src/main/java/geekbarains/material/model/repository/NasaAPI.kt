@@ -1,8 +1,9 @@
 package geekbarains.material.model.repository
 
 import retrofit2.Callback
-import geekbarains.material.model.retrofit.APODServerResponseData
-import geekbarains.material.model.retrofit.mars.MarsServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
+import geekbarains.material.model.retrofit.response.EPICServerResponseData
+import geekbarains.material.model.retrofit.response.MarsServerResponseData
 
 interface NasaAPI {
 
@@ -13,7 +14,7 @@ interface NasaAPI {
 
     fun getEPIC(
         itemDate: String,
-        callback: Callback<geekbarains.material.model.retrofit.epic.EPICServerResponseData>,
+        callback: Callback<EPICServerResponseData>,
     )
 
     fun getPhotoFromMars(
