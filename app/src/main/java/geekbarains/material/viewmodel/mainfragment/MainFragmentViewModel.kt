@@ -8,7 +8,7 @@ import geekbarains.material.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import geekbarains.material.model.retrofit.APODServerResponseData
+import geekbarains.material.model.retrofit.response.APODServerResponseData
 
 class MainFragmentViewModel(
     private val liveDataForViewToObserve: MutableLiveData<geekbarains.material.model.AppState> = MutableLiveData(),
@@ -29,7 +29,7 @@ class MainFragmentViewModel(
         ) {
             if (response.isSuccessful && response.body() != null) {
                 liveDataForViewToObserve.value =
-                    geekbarains.material.model.AppState.Success(response.body()!!)
+                    geekbarains.material.model.AppState.SuccessAPOD(response.body()!!)
             } else {
                 val message = response.message()
                 if (message.isNullOrEmpty()) {
@@ -38,8 +38,12 @@ class MainFragmentViewModel(
                     if (gv != null) {
                         gv.getApplication()
                         liveDataForViewToObserve.value =
-                            geekbarains.material.model.AppState.Error(Throwable(gv.getApplication()
-                                ?.getString(R.string.undefError)))
+                            geekbarains.material.model.AppState.Error(
+                                Throwable(
+                                    gv.getApplication()
+                                        ?.getString(R.string.undefError)
+                                )
+                            )
                     }
                 } else {
                     liveDataForViewToObserve.value =
@@ -61,8 +65,12 @@ class MainFragmentViewModel(
             if (gv != null) {
                 gv.getApplication()
                 liveDataForViewToObserve.value =
-                    geekbarains.material.model.AppState.Error(Throwable(gv.getApplication()
-                        ?.getString(R.string.blankAPIKey)))
+                    geekbarains.material.model.AppState.Error(
+                        Throwable(
+                            gv.getApplication()
+                                ?.getString(R.string.blankAPIKey)
+                        )
+                    )
             }
         } else {
             retrofitImpl.getPictureOfDayRetroFit(itemDate, callBack)

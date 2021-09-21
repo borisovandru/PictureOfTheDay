@@ -48,7 +48,8 @@ class MarsFragment : Fragment() {
         val rovers = mutableListOf<Rover>()
         for (i in roversName.indices) {
             val arrayName = "camera_rover_$i"
-            val arrayNameID = resources.getIdentifier(arrayName, "array", requireActivity().packageName)
+            val arrayNameID =
+                resources.getIdentifier(arrayName, "array", requireActivity().packageName)
             val cameras = resources.getStringArray(arrayNameID).toList()
             rovers.add(Rover(roversName[i], roversDateStart[i], roversDateEnd[i], cameras))
         }

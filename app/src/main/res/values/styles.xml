@@ -18,7 +18,6 @@
         <item name="rippleColor">@color/color_green_light</item>
     </style>
 
-
     <style name="ChipChoiceMars" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textColor">@color/color_white</item>
         <item name="chipBackgroundColor">@color/bg_chip_state_list_mars</item>
@@ -37,7 +36,7 @@
         <item name="rippleColor">@color/color_yellow</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/LightSalmon</item>
         <item name="colorPrimaryVariant">@color/LightSalmon</item>
@@ -56,7 +55,6 @@
         <item name="materialCardViewStyle">@style/AppCard</item>
         <item name="fontFamily">@font/rotarfihs</item>
     </style>
-
 
     <style name="AppThemeMars" parent="AppTheme">
         <!-- Customize your theme here. -->
@@ -77,11 +75,11 @@
 
     <style name="AppThemeMoon" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/color_white</item>
-        <item name="colorPrimaryVariant">@color/color_white</item>
-        <item name="android:colorBackground">@color/color_white</item>
-        <item name="colorOnBackground">@color/color_white</item>
-        <item name="fontFamily">@font/fontick</item>
+        <item name="colorPrimary">@color/color_gray_light</item>
+        <item name="colorPrimaryVariant">@color/color_gray_light</item>
+        <item name="android:colorBackground">@color/color_gray_light</item>
+        <item name="colorOnBackground">@color/color_gray_light</item>
+        <item name="fontFamily">sans-serif</item>
     </style>
 
     <style name="Line">
@@ -92,7 +90,15 @@
     </style>
 
     <style name="Header">
-        <item name="android:background">@color/color_gray</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:gravity">center|bottom</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+
+    <style name="LinearLayout">
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <style name="Description">
@@ -101,10 +107,14 @@
         <item name="android:paddingEnd">10dp</item>
         <item name="android:textColor">@color/color_black</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:padding">8dp</item>
         <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="BottomNavigationView" parent="Widget.MaterialComponents.NavigationRailView">
+        <item name="android:background">@color/color_white</item>
         <item name="android:layout_gravity">bottom</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">8dp</item>

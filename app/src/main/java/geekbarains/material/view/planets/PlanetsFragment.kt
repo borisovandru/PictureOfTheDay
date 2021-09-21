@@ -1,16 +1,17 @@
 package geekbarains.material.view.planets
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import kotlinx.android.synthetic.main.planets_fragment.*
 import geekbarains.material.R
 import geekbarains.material.util.ZoomOutPageTransformer
-import kotlinx.android.synthetic.main.planets_fragment.*
 
 private const val EARTH = 0
 private const val MARS = 1
@@ -26,10 +27,6 @@ class PlanetsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.planets_fragment, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,6 +73,7 @@ class PlanetsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun setEarthTabHighlighted(layoutInflater: LayoutInflater) {
         val earth =
             layoutInflater.inflate(R.layout.tab_earth, null)
@@ -91,6 +89,7 @@ class PlanetsFragment : Fragment() {
             layoutInflater.inflate(R.layout.tab_mars, null)
     }
 
+    @SuppressLint("InflateParams")
     private fun setMarsTabHighlighted(layoutInflater: LayoutInflater) {
         val mars =
             layoutInflater.inflate(R.layout.tab_mars, null)
@@ -104,6 +103,5 @@ class PlanetsFragment : Fragment() {
         tab_layout.getTabAt(EARTH)?.customView =
             layoutInflater.inflate(R.layout.tab_earth, null)
         tab_layout.getTabAt(MARS)?.customView = mars
-
     }
 }

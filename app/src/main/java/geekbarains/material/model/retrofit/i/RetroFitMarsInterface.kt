@@ -1,10 +1,10 @@
-package geekbarains.material.model.retrofit
+package geekbarains.material.model.retrofit.i
 
+import geekbarains.material.model.retrofit.response.MarsServerResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import geekbarains.material.model.retrofit.mars.MarsServerResponseData
 
 interface RetroFitMarsInterface {
 

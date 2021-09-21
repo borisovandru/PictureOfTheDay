@@ -9,7 +9,7 @@ import retrofit2.Response
 import geekbarains.material.BuildConfig
 import geekbarains.material.R
 import geekbarains.material.model.AppState
-import geekbarains.material.model.retrofit.mars.MarsServerResponseData
+import geekbarains.material.model.retrofit.response.MarsServerResponseData
 
 class MarsFragmentViewModel(
     private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),

@@ -1,5 +1,6 @@
 package geekbarains.material.view.planets
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,12 +57,13 @@ class EarthFragment : Fragment() {
             )
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun createImageUrl(imageUrl: String, imageDateStr: String): String {
         var year = EPIC_IMAGE_URL_DEFAULT_YEAR
         var month = EPIC_IMAGE_URL_DEFAULT_MONTH
         var day = EPIC_IMAGE_URL_DEFAULT_DAY
         val imageDate = SimpleDateFormat(DATE_FORMAT).parse(imageDateStr)
-        imageDate?.let{
+        imageDate?.let {
             var sdf = SimpleDateFormat(getString(R.string.dateFormatYear), Locale.US)
             year = sdf.format(it.time)
 

@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import geekbarains.material.R
-import kotlinx.android.synthetic.main.fragment_chips.*
-import kotlinx.android.synthetic.main.fragment_chips.chipGroup
+import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.chipGroup
 import geekbarains.material.util.sharedpref.SharedPref
 
 class SettingsFragment : Fragment() {
@@ -21,7 +21,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         checkTheme = true
-        return inflater.inflate(R.layout.fragment_chips, container, false)
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +54,6 @@ class SettingsFragment : Fragment() {
         chipMoon.setOnClickListener {
             setTheme(R.style.AppThemeMoon)
         }
-
     }
 
     private fun styleToConst(style: Int): Int {
@@ -67,8 +66,13 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setTheme(style: Int) {
-        SharedPref(requireContext()).saveSettings(geekbarains.material.model.Settings(styleToConst(
-            style)))
+        SharedPref(requireContext()).saveSettings(
+            geekbarains.material.model.Settings(
+                styleToConst(
+                    style
+                )
+            )
+        )
         requireActivity().setTheme(style)
         requireActivity().recreate()
     }
