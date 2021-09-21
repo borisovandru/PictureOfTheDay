@@ -25,6 +25,7 @@
             android:layout_marginLeft="7dp"
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
+            android:contentDescription="@string/todo"
             android:src="@drawable/swipe_indicator_active" />
 
         <ImageView
@@ -34,6 +35,7 @@
             android:layout_marginLeft="7dp"
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
+            android:contentDescription="@string/todo"
             android:src="@drawable/swipe_indicator_passive" />
 
     </LinearLayout>

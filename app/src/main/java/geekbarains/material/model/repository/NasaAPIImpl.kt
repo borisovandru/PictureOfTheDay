@@ -17,7 +17,7 @@ import geekbarains.material.model.retrofit.response.EPICServerResponseData
 import geekbarains.material.model.retrofit.response.MarsServerResponseData
 import java.io.IOException
 
-class NasaAPIImpl: NasaAPI {
+class NasaAPIImpl : NasaAPI {
 
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
@@ -62,7 +62,6 @@ class NasaAPIImpl: NasaAPI {
         )
         .client(createOkHttpClient(PODInterceptor()))
         .build().create(RetroFitMarsInterface::class.java)
-
 
     override fun getPictureOfDayRetroFit(
         itemDate: String?,

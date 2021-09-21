@@ -1,5 +1,6 @@
 package geekbarains.material.view.planets
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -72,6 +73,7 @@ class PlanetsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun setEarthTabHighlighted(layoutInflater: LayoutInflater) {
         val earth =
             layoutInflater.inflate(R.layout.tab_earth, null)
@@ -87,6 +89,7 @@ class PlanetsFragment : Fragment() {
             layoutInflater.inflate(R.layout.tab_mars, null)
     }
 
+    @SuppressLint("InflateParams")
     private fun setMarsTabHighlighted(layoutInflater: LayoutInflater) {
         val mars =
             layoutInflater.inflate(R.layout.tab_mars, null)

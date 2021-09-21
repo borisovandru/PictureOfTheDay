@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/LinearLayout"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -40,7 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/photo_of_the_day_stub"
-                    app:srcCompat="@drawable/ic_no_photo_vector" />
+                    app:srcCompat="@drawable/ic_no_photo_vector"
+                    tools:ignore="ImageContrastCheck" />
 
                 <WebView
                     android:id="@+id/webView"
@@ -66,9 +66,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/LinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/LinearLayout">
+            android:layout_height="match_parent">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
@@ -102,14 +102,14 @@
 
             <TextView
                 android:id="@+id/header"
+                style="@style/Header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Header"
                 app:layout_constraintBottom_toTopOf="@+id/description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-                tools:text="smd;lmsdkl;ngklsdn"/>
+                tools:text="smd;lmsdkl;ngklsdn" />
 
             <androidx.constraintlayout.motion.widget.MotionLayout
                 android:id="@+id/motionLayout"
@@ -117,11 +117,11 @@
                 android:layout_height="match_parent"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
+                app:layoutDescription="@xml/fragment_main_scene"
                 app:layout_constraintBottom_toBottomOf="@+id/header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/header"
-                app:layoutDescription="@xml/fragment_main_scene">
+                app:layout_constraintTop_toTopOf="@+id/header">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/wiki_button"
@@ -140,15 +140,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/search_wiki"
-                    app:endIconDrawable="@drawable/ic_search"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
                     app:endIconCheckable="true"
+                    app:endIconDrawable="@drawable/ic_search"
                     app:endIconMode="custom"
                     app:helperText="@string/wiki_helper_text"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/wiki_button"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_edit_text"
@@ -160,9 +160,9 @@
 
             <TextView
                 android:id="@+id/description"
+                style="@style/Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header"
@@ -176,10 +176,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:contentDescription="@string/fab"
         android:src="@drawable/ic_comment_24"
         app:layout_anchor="@id/main_appbar"
-        app:layout_anchorGravity="bottom|right|end"
-        android:contentDescription="FAB" />
+        app:layout_anchorGravity="bottom|right|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -7,7 +7,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 private const val EARTH_FRAGMENT = 0
 private const val MARS_FRAGMENT = 1
 
-class ViewPagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager) {
+class ViewPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager) {
 
     private val fragments = arrayOf(EarthFragment(), MarsFragment())
 

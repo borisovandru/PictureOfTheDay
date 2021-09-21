@@ -1,5 +1,6 @@
 package geekbarains.material.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -11,6 +12,7 @@ import kotlin.math.abs
 open class OnSwipeTouchListener(ctx: Context?) : OnTouchListener {
     private val gestureDetector: GestureDetector
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         return gestureDetector.onTouchEvent(event)
     }

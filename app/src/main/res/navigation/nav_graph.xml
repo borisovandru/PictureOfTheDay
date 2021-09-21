@@ -4,8 +4,8 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/navigation_main">
 
-    <include app:graph="@navigation/navigation_main"/>
-    <include app:graph="@navigation/navigation_planets"/>
-    <include app:graph="@navigation/navigation_settings"/>
+    <include app:graph="@navigation/navigation_main" />
+    <include app:graph="@navigation/navigation_planets" />
+    <include app:graph="@navigation/navigation_settings" />
 
 </navigation>

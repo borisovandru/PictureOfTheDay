@@ -1,5 +1,6 @@
 package geekbarains.material.view.mainfragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -38,6 +39,7 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment_start, container, false)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,7 +49,7 @@ class MainFragment : Fragment() {
         viewModel.getData(null)
             .observe(viewLifecycleOwner, { renderData(it) })
 
-        wiki_button.setOnTouchListener (object : OnSwipeTouchListener(requireActivity()) {
+        wiki_button.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
                 motionLayout.transitionToEnd()
@@ -94,13 +96,11 @@ class MainFragment : Fragment() {
         when (data) {
             is geekbarains.material.model.AppState.SuccessAPOD -> {
                 val serverResponseData = data.serverResponseData
-
-                //val bsc = mainFragmentView.findViewById(R.id.bottom_sheet_container) as View
-
                 val url: String?
 
                 if (serverResponseData.mediaType != MEDIA_TYPE_IMAGE
-                    && serverResponseData.url != null) {
+                    && serverResponseData.url != null
+                ) {
                     webView.visibility = View.VISIBLE
                     webView.loadUrl(serverResponseData.url)
                     image_view.visibility = View.INVISIBLE
@@ -113,14 +113,8 @@ class MainFragment : Fragment() {
                 }
 
                 if (url.isNullOrEmpty()) {
-                    //bsc.visibility = View.GONE
                     toast(getString(R.string.emptyLink))
                 } else {
-                    /*bsc.visibility = View.VISIBLE
-                    val header = bsc.findViewById<TextView>(R.id.bottom_sheet_description_header)
-                    header.text = serverResponseData.title
-                    val body = bsc.findViewById<TextView>(R.id.bottom_sheet_description)
-                    body.text = serverResponseData.explanation*/
                     header.text = serverResponseData.title
                     description.text = serverResponseData.explanation
                 }

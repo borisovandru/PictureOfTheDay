@@ -22,7 +22,6 @@
         <item>"4444/12/31"</item>
     </string-array>
 
-
     <string-array name="camera_rover_0">
         <item>PANCAM</item>
     </string-array>
@@ -53,5 +52,4 @@
         <item>SKYCAM</item>
         <item>SUPERCAM_RMI</item>
     </string-array>
-
 </resources>
