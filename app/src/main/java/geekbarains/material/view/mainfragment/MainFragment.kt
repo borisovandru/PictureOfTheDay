@@ -1,6 +1,5 @@
 package geekbarains.material.view.mainfragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.main_fragment.*
 import geekbarains.material.Constant
 import geekbarains.material.Constant.MEDIA_TYPE_IMAGE
 import geekbarains.material.Constant.WIKI_URL
@@ -21,6 +19,7 @@ import geekbarains.material.R
 import geekbarains.material.util.OnSwipeTouchListener
 import geekbarains.material.util.toast
 import geekbarains.material.viewmodel.mainfragment.MainFragmentViewModel
+import kotlinx.android.synthetic.main.main_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,8 +29,6 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
-    private lateinit var mainFragmentView: View
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -39,7 +36,6 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment_start, container, false)
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,7 +43,9 @@ class MainFragment : Fragment() {
         webView.settings.javaScriptEnabled = true
 
         viewModel.getData(null)
-            .observe(viewLifecycleOwner, { renderData(it) })
+            .observe(viewLifecycleOwner, { appState ->
+                renderData(appState)
+            })
 
         wiki_button.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeLeft() {
@@ -61,22 +59,24 @@ class MainFragment : Fragment() {
             }
         })
 
-        mainFragmentView = view
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            group.findViewById<Chip>(checkedId)?.let {
 
-        chipGroup.setOnCheckedChangeListener { chipGroup, position ->
-            chipGroup.findViewById<Chip>(position)?.let {
                 val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+                sdf.timeZone = TimeZone.getTimeZone(Constant.NASA_TIME_ZONE)
                 val cal = Calendar.getInstance(TimeZone.getTimeZone(Constant.NASA_TIME_ZONE))
 
-                when (position) {
-                    1 -> cal.add(Calendar.DAY_OF_YEAR, -2)
-                    2 -> cal.add(Calendar.DAY_OF_YEAR, -1)
-                    3 -> cal.add(Calendar.DAY_OF_YEAR, 0)
+                when (it.text) {
+                    resources.getString(R.string.two_yesterday) -> cal.add(Calendar.DAY_OF_YEAR, -2)
+                    resources.getString(R.string.yesterday) -> cal.add(Calendar.DAY_OF_YEAR, -1)
+                    resources.getString(R.string.today) -> cal.add(Calendar.DAY_OF_YEAR, 0)
                 }
                 val itemDate: String? = sdf.format(cal.time)
 
                 viewModel.getData(itemDate)
-                    .observe(viewLifecycleOwner, { renderData(it) })
+                    .observe(viewLifecycleOwner, { appState ->
+                        renderData(appState)
+                    })
             }
         }
 
@@ -96,6 +96,7 @@ class MainFragment : Fragment() {
         when (data) {
             is geekbarains.material.model.AppState.SuccessAPOD -> {
                 val serverResponseData = data.serverResponseData
+
                 val url: String?
 
                 if (serverResponseData.mediaType != MEDIA_TYPE_IMAGE
@@ -153,4 +154,6 @@ class MainFragment : Fragment() {
             super.onUnhandledKeyEvent(view, event)
         }
     }
+
+
 }

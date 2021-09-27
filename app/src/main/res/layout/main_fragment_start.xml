@@ -39,8 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/photo_of_the_day_stub"
-                    app:srcCompat="@drawable/ic_no_photo_vector"
-                    tools:ignore="ImageContrastCheck" />
+                    app:srcCompat="@drawable/ic_no_photo_vector" />
 
                 <WebView
                     android:id="@+id/webView"
@@ -81,19 +80,19 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    style="@style/ChipChoice"
+                    style="@style/chipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/two_yesterday" />
 
                 <com.google.android.material.chip.Chip
-                    style="@style/ChipChoice"
+                    style="@style/chipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
-                    style="@style/ChipChoice"
+                    style="@style/chipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -179,9 +178,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:contentDescription="@string/todo"
         android:src="@drawable/ic_comment_24"
         app:layout_anchor="@id/main_appbar"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|right|end"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
