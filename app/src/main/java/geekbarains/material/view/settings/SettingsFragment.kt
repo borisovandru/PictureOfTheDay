@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.chip.Chip
-import geekbarains.material.R
 import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.fragment_settings.chipGroup
+import geekbarains.material.R
 import geekbarains.material.util.sharedpref.SharedPref
 
 class SettingsFragment : Fragment() {
@@ -29,20 +26,6 @@ class SettingsFragment : Fragment() {
 
         checkTheme = false
 
-        chipGroup.setOnCheckedChangeListener { chipGroup, position ->
-            chipGroup.findViewById<Chip>(position)?.let {
-                Toast.makeText(context, "Выбран ${it.text}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        chip_close.setOnCloseIconClickListener {
-            Toast.makeText(
-                context,
-                "Close is Clicked",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
         chipMars.setOnClickListener {
             setTheme(R.style.AppThemeMars)
         }
@@ -54,6 +37,7 @@ class SettingsFragment : Fragment() {
         chipMoon.setOnClickListener {
             setTheme(R.style.AppThemeMoon)
         }
+
     }
 
     private fun styleToConst(style: Int): Int {
