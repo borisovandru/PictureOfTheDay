@@ -2,13 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_main"
-        android:icon="@drawable/ic_earth"
+        android:icon="@drawable/ic_planet_earth"
         android:title="@string/TPOD" />
 
     <item
         android:id="@+id/navigation_planets"
-        android:icon="@drawable/ic_mars"
+        android:icon="@drawable/ic_planet_mars"
         android:title="@string/Planets" />
+
+    <item
+        android:id="@+id/navigation_notes"
+        android:icon="@drawable/ic_sticky"
+        android:title="@string/notes" />
 
     <item
         android:id="@+id/navigation_settings"

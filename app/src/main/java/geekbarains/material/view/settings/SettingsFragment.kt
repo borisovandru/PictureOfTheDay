@@ -50,13 +50,8 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setTheme(style: Int) {
-        SharedPref(requireContext()).saveSettings(
-            geekbarains.material.model.Settings(
-                styleToConst(
-                    style
-                )
-            )
-        )
+        SharedPref(requireContext()).saveSettings(geekbarains.material.model.Settings(styleToConst(
+            style)))
         requireActivity().setTheme(style)
         requireActivity().recreate()
     }

@@ -15,7 +15,6 @@ import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import coil.load
-import kotlinx.android.synthetic.main.fragment_earth.*
 import geekbarains.material.BuildConfig
 import geekbarains.material.Constant.DATE_FORMAT
 import geekbarains.material.Constant.EPIC_IMAGE_URL
@@ -32,6 +31,7 @@ import geekbarains.material.model.AppState
 import geekbarains.material.model.retrofit.epic.EPICItem
 import geekbarains.material.util.toast
 import geekbarains.material.viewmodel.planets.EarthFragmentViewModel
+import kotlinx.android.synthetic.main.fragment_earth.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +39,6 @@ class EarthFragment : Fragment() {
 
     private var isExpanded = false
     private var itemImage = 0
-    private var earthDayToPhoto = 0
     private var serverResponseData = arrayListOf<EPICItem>()
 
     private val viewModel: EarthFragmentViewModel by lazy {
@@ -56,7 +55,20 @@ class EarthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sendData()
+        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
+        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+
+        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH)
+
+        val itemDate: String = sdf.format(cal.time)
+
+        viewModel.getData(itemDate)
+            .observe(
+                viewLifecycleOwner, {
+                    renderData(it)
+                }
+            )
 
         imageViewEarth.setOnClickListener {
             isExpanded = !isExpanded
@@ -104,15 +116,12 @@ class EarthFragment : Fragment() {
 
     private fun nextImage(direction: Int) {
         if (itemImage + direction < serverResponseData.size && itemImage + direction >= 0) {
-            itemImage += direction
+            itemImage = itemImage + direction
         }
         countEarthImage.text =
             getString(R.string.itemImage, (itemImage + 1), serverResponseData.size)
-        if (serverResponseData.isNotEmpty())
-            dateEarthImage.text =
-                getString(R.string.itemImageDate, serverResponseData[itemImage].date)
-        val imageUrl = serverResponseData[itemImage].image
-        val imageDate = serverResponseData[itemImage].date
+        val imageUrl = serverResponseData.get(itemImage).image
+        val imageDate = serverResponseData.get(itemImage).date
         val imageFullPath = createImageUrl(imageUrl, imageDate)
         imageViewEarth.load(imageFullPath)
     }
@@ -216,23 +225,6 @@ class EarthFragment : Fragment() {
                 EPIC_IMAGE_URL_OTHERS + BuildConfig.NASA_API_KEY
     }
 
-    private fun sendData() {
-        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
-        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
-        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
-
-        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
-
-        val itemDate: String = sdf.format(cal.time)
-
-        viewModel.getData(itemDate)
-            .observe(
-                viewLifecycleOwner, {
-                    renderData(it)
-                }
-            )
-    }
-
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.SuccessEPIC -> {
@@ -241,15 +233,10 @@ class EarthFragment : Fragment() {
                 if (serverResponseData.isNotEmpty()) {
                     countEarthImage.text =
                         getString(R.string.itemImage, (itemImage + 1), serverResponseData.size)
-                    dateEarthImage.text =
-                        getString(R.string.itemImageDate, serverResponseData.first().date)
                     val imageUrl = serverResponseData.first().image
                     val imageDate = serverResponseData.first().date
                     val imageFullPath = createImageUrl(imageUrl, imageDate)
                     imageViewEarth.load(imageFullPath)
-                } else {
-                    earthDayToPhoto++
-                    sendData()
                 }
             }
             is AppState.Loading -> {
