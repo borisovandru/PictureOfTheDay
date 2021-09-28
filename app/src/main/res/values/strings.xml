@@ -35,8 +35,7 @@
     <string name="itemImageDate">Дата снимка: %1$s</string>
     <string name="next">Следующее</string>
     <string name="prev">Предыдущее</string>
-    <string name="todo">TODO</string>
+    <string name="notes">Заметки</string>
     <string name="fab">FAB</string>
-    <string name="_1">На экран 1</string>
-    <string name="_2">На экран 2</string>
+    <string name="todo">TODO</string>
 </resources>

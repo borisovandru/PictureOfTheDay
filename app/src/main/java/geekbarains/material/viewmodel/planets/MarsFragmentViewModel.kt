@@ -39,8 +39,12 @@ class MarsFragmentViewModel(
                     if (gv != null) {
                         gv.getApplication()
                         liveDataForViewToObserve.value =
-                            AppState.Error(Throwable(gv.getApplication()
-                                ?.getString(R.string.undefError)))
+                            AppState.Error(
+                                Throwable(
+                                    gv.getApplication()
+                                        ?.getString(R.string.undefError)
+                                )
+                            )
                     }
                 } else {
                     liveDataForViewToObserve.value =
@@ -62,8 +66,12 @@ class MarsFragmentViewModel(
             if (gv != null) {
                 gv.getApplication()
                 liveDataForViewToObserve.value =
-                    AppState.Error(Throwable(gv.getApplication()
-                        ?.getString(R.string.blankAPIKey)))
+                    AppState.Error(
+                        Throwable(
+                            gv.getApplication()
+                                ?.getString(R.string.blankAPIKey)
+                        )
+                    )
             }
         } else {
             retrofitImpl.getPhotoFromMars(rover, earthDate, camera, callBack)
