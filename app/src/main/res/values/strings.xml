@@ -32,10 +32,11 @@
     <string name="pause_right_play">M26,23 L41,32 L27,41</string>
     <string name="clockwise_circle">M32,8 A24,24 0 1 1 31.99,8 z</string>
     <string name="itemImage">Изображение %1$d из %2$d</string>
-    <string name="itemImageDate">Дата снимка: %1$s</string>
     <string name="next">Следующее</string>
     <string name="prev">Предыдущее</string>
     <string name="notes">Заметки</string>
-    <string name="fab">FAB</string>
     <string name="todo">TODO</string>
+    <string name="enter_search_words">Введите слова для поиска</string>
+    <string name="button_search">Поиск</string>
+    <string name="fab">FAB</string>
 </resources>

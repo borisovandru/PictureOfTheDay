@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_toStartOf="@+id/searchButton"
-            android:hint="Введите слова для поиска"
+            android:hint="@string/enter_search_words"
             android:minHeight="48dp" />
 
         <Button
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="Поиск" />
+            android:text="@string/search" />
 
     </RelativeLayout>
 
