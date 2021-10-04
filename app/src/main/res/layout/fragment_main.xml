@@ -170,7 +170,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.motion.widget.MotionLayout>
 
-
             <TextView
                 android:id="@+id/description"
                 style="@style/Description"
@@ -193,6 +192,5 @@
         android:src="@drawable/ic_comment_24"
         app:layout_anchor="@id/main_appbar"
         app:layout_anchorGravity="bottom|right|end" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

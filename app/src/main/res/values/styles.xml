@@ -53,7 +53,7 @@
         <item name="materialButtonStyle">@style/AppButton</item>
         <item name="textInputStyle">@style/AppTextField</item>
         <item name="materialCardViewStyle">@style/AppCard</item>
-        <item name="fontFamily">@font/rotarfihs</item>
+        <item name="fontFamily">sans-serif</item>
     </style>
 
     <style name="AppThemeMars" parent="AppTheme">
@@ -79,7 +79,7 @@
         <item name="colorPrimaryVariant">@color/color_gray_light</item>
         <item name="android:colorBackground">@color/color_gray_light</item>
         <item name="colorOnBackground">@color/color_gray_light</item>
-        <item name="fontFamily">sans-serif</item>
+
     </style>
 
     <style name="Line">

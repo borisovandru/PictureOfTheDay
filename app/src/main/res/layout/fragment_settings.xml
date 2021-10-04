@@ -27,14 +27,16 @@
             style="@style/ChipChoiceMars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Mars" />
+            android:text="@string/Mars"
+            android:textColor="#000000" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipEarth"
             style="@style/ChipChoiceEarth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Earth" />
+            android:text="@string/Earth"
+            android:textColor="#616161" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMoon"
@@ -42,8 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/Moon" />
+            android:text="@string/Moon"
+            android:textColor="#263238" />
     </com.google.android.material.chip.ChipGroup>
+
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/play_pause_circle"
