@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
         val settings = SharedPref(this).loadSettings()
