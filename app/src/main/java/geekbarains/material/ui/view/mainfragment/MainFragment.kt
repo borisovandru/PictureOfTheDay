@@ -127,36 +127,38 @@ class MainFragment : Fragment() {
                     header.text = serverResponseData.title
                     description.text = serverResponseData.explanation
 
-                    val spannableString = SpannableString(serverResponseData.explanation)
-                    val nasaStr = "PictureOfTheDay"
-                    var nasaStrItem = 0
-                    var nasaStrItemColor = false
-                    serverResponseData.explanation?.let {
-                        for (i in it.toCharArray().indices) {
-                            if (it.toCharArray()[i].uppercaseChar() == nasaStr.toCharArray()[nasaStrItem].uppercaseChar()) {
+//  Покраска выбранных букв из слова "NASA API" во всем тексте
 
-                                if (nasaStrItem < 3) {
-                                    nasaStrItem++
-                                } else {
-                                    nasaStrItem = 0
-                                    nasaStrItemColor = !nasaStrItemColor
-                                }
-                                val itemColor = if (nasaStrItemColor) {
-                                    Color.CYAN
-                                } else {
-                                    Color.RED
-                                }
-                                spannableString.setSpan(
-                                    BackgroundColorSpan(itemColor),
-                                    i,
-                                    i + 1,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
-
-                                description.setText(spannableString, TextView.BufferType.SPANNABLE)
-                            }
-                        }
-                    }
+//                    val spannableString = SpannableString(serverResponseData.explanation)
+//                    val nasaStr = "NASA API"
+//                    var nasaStrItem = 0
+//                    var nasaStrItemColor = false
+//                    serverResponseData.explanation?.let {
+//                        for (i in it.toCharArray().indices) {
+//                            if (it.toCharArray()[i].uppercaseChar() == nasaStr.toCharArray()[nasaStrItem].uppercaseChar()) {
+//
+//                                if (nasaStrItem < 3) {
+//                                    nasaStrItem++
+//                                } else {
+//                                    nasaStrItem = 0
+//                                    nasaStrItemColor = !nasaStrItemColor
+//                                }
+//                                val itemColor = if (nasaStrItemColor) {
+//                                    Color.CYAN
+//                                } else {
+//                                    Color.RED
+//                                }
+//                                spannableString.setSpan(
+//                                    BackgroundColorSpan(itemColor),
+//                                    i,
+//                                    i + 1,
+//                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//                                )
+//
+//                                description.setText(spannableString, TextView.BufferType.SPANNABLE)
+//                            }
+//                        }
+//                    }
                 }
             }
             is geekbarains.material.ui.model.AppState.Loading -> {

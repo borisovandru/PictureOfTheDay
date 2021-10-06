@@ -36,7 +36,7 @@ class MyView : View {
         fontPaint.textSize = fontSize
         fontPaint.style = Paint.Style.STROKE
         canvas.drawText(
-            "PictureOfTheDay",
+                "NASA API",
             (width / 2).toFloat() - 200F,
             (height / 2).toFloat() + 20F,
             fontPaint

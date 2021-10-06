@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Splash">
         <activity
-            android:name="geekbarains.material.ui.view.MainActivity"
+            android:name="geekbarains.material.ui.view.SplashActivity"
             android:configChanges="uiMode"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
