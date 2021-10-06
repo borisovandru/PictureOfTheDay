@@ -40,4 +40,6 @@
     <string name="button_search">Поиск</string>
     <string name="fab">FAB</string>
     <string name="itemImageDate">Дата снимка: %1$s</string>
+    <string name="buttonNext"><![CDATA[>>]]></string>
+    <string name="buttonPrev"><![CDATA[<<]]></string>
 </resources>

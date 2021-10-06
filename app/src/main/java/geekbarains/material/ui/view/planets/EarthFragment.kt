@@ -57,7 +57,17 @@ class EarthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
+        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
+        val itemDate: String = sdf.format(cal.time)
+        dateEarthImage.text = getString(R.string.itemImageDate, itemDate)
+
         sendData()
+
+        buttonPrev.setOnClickListener { switchImage(-1)  }
+        buttonNext.setOnClickListener { switchImage(1)  }
 
         imageViewEarth.setOnClickListener {
             isExpanded = !isExpanded
@@ -103,7 +113,7 @@ class EarthFragment : Fragment() {
         }
     }
 
-    private fun nextImage(direction: Int) {
+    private fun switchImage(direction: Int) {
         if (itemImage + direction < serverResponseData.size && itemImage + direction >= 0) {
             itemImage += direction
         }
@@ -133,7 +143,7 @@ class EarthFragment : Fragment() {
                     option_two_container.isClickable = true
                     option_two_container.setOnClickListener {
                         if (serverResponseData.isNotEmpty()) {
-                            nextImage(-1)
+                            switchImage(-1)
                         }
                     }
                 }
@@ -146,7 +156,7 @@ class EarthFragment : Fragment() {
                     option_one_container.isClickable = true
                     option_one_container.setOnClickListener {
                         if (serverResponseData.isNotEmpty()) {
-                            nextImage(1)
+                            switchImage(1)
                         }
                     }
                 }
