@@ -332,8 +332,6 @@ class RecyclerActivityAdapter(
     }
 
     companion object {
-        private const val TYPE_EARTH = 0
-        private const val TYPE_MARS = 1
         private const val TYPE_HEADER = 2
         private const val TYPE_PLANET = 3
     }

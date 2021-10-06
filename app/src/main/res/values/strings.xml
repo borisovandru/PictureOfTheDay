@@ -42,4 +42,6 @@
     <string name="itemImageDate">Дата снимка: %1$s</string>
     <string name="buttonNext"><![CDATA[>>]]></string>
     <string name="buttonPrev"><![CDATA[<<]]></string>
+    <string name="share">Поделиться</string>
+    <string name="justButton">Просто кнопка</string>
 </resources>

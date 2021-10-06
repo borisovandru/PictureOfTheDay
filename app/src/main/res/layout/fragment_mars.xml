@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <geekbarains.material.util.EquilateralImageView
+        <ImageView
             android:id="@+id/imageViewMars"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bg_earth" />
 
         <TextView
@@ -109,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                android:text="@string/next"
+                android:text="@string/share"
                 android:textColor="?attr/colorSecondary"
                 android:textStyle="bold" />
 
@@ -117,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_next" />
+                app:srcCompat="@drawable/ic_share_24" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                android:text="@string/prev"
+                android:text="@string/justButton"
                 android:textColor="?attr/colorSecondary"
                 android:textStyle="bold" />
 
@@ -163,6 +165,6 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:elevation="10dp"
-            app:srcCompat="@drawable/ic_baseline_switch_left_24" />
+            app:srcCompat="@drawable/ic_share_24" />
     </FrameLayout>
 </FrameLayout>

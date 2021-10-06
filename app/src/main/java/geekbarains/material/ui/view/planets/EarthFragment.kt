@@ -4,11 +4,14 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -16,6 +19,7 @@ import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import coil.load
+import com.bumptech.glide.Glide
 import geekbarains.material.BuildConfig
 import geekbarains.material.ui.Constant.DATE_FORMAT
 import geekbarains.material.ui.Constant.EPIC_IMAGE_URL
@@ -33,6 +37,10 @@ import geekbarains.material.ui.model.retrofit.epic.EPICItem
 import geekbarains.material.util.toast
 import geekbarains.material.ui.viewmodel.planets.EarthFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_earth.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,6 +50,8 @@ class EarthFragment : Fragment() {
     private var itemImage = 0
     private var earthDayToPhoto = 0
     private var serverResponseData = arrayListOf<EPICItem>()
+    private val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+    private lateinit var sdf: SimpleDateFormat
 
     private val viewModel: EarthFragmentViewModel by lazy {
         ViewModelProvider(this).get(EarthFragmentViewModel::class.java)
@@ -56,18 +66,15 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
-        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
-        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+        sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
         cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
         val itemDate: String = sdf.format(cal.time)
         dateEarthImage.text = getString(R.string.itemImageDate, itemDate)
 
         sendData()
 
-        buttonPrev.setOnClickListener { switchImage(-1)  }
-        buttonNext.setOnClickListener { switchImage(1)  }
+        buttonPrev.setOnClickListener { switchImage(-1) }
+        buttonNext.setOnClickListener { switchImage(1) }
 
         imageViewEarth.setOnClickListener {
             isExpanded = !isExpanded
@@ -127,6 +134,52 @@ class EarthFragment : Fragment() {
         val imageDate = serverResponseData[itemImage].date
         val imageFullPath = createImageUrl(imageUrl, imageDate)
         imageViewEarth.load(imageFullPath)
+        imageViewEarth.contentDescription = imageFullPath
+    }
+
+    private fun shareImage(
+        imageFileName: String,
+        context: Context,
+        dateImage: String,
+        planetName: String,
+    ) {
+        var imagePath: String?
+
+        val marsFragment = MarsFragment.newInstance()
+        CoroutineScope(Dispatchers.IO).launch {
+            imagePath = marsFragment.saveImage(
+                Glide.with(context)
+                    .asBitmap()
+                    .load(imageFileName) // sample image
+                    .placeholder(android.R.drawable.progress_indeterminate_horizontal) // need placeholder to avoid issue like glide annotations
+                    .error(android.R.drawable.stat_notify_error) // need error to avoid issue like glide annotations
+                    .submit()
+                    .get(),
+                dateImage,
+                context,
+                planetName,
+                itemImage
+            )
+
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "image/*"
+
+            imagePath?.let {
+                val f = File(it)
+
+                val imageUri = FileProvider.getUriForFile(
+                    context,
+                    BuildConfig.APPLICATION_ID + ".provider",  //(use your app signature + ".provider" )
+                    f
+                )
+
+                share.putExtra(
+                    Intent.EXTRA_STREAM,
+                    imageUri
+                )
+                startActivity(Intent.createChooser(share, "Share Image"))
+            }
+        }
     }
 
     private fun expandFAB() {
@@ -142,9 +195,7 @@ class EarthFragment : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     option_two_container.isClickable = true
                     option_two_container.setOnClickListener {
-                        if (serverResponseData.isNotEmpty()) {
-                            switchImage(-1)
-                        }
+                        toast("Функционал не реализован")
                     }
                 }
             })
@@ -156,7 +207,12 @@ class EarthFragment : Fragment() {
                     option_one_container.isClickable = true
                     option_one_container.setOnClickListener {
                         if (serverResponseData.isNotEmpty()) {
-                            switchImage(1)
+                            shareImage(
+                                imageViewEarth.contentDescription.toString(),
+                                requireContext(),
+                                sdf.format(cal.time),
+                                "Earth"
+                            )
                         }
                     }
                 }
@@ -211,7 +267,7 @@ class EarthFragment : Fragment() {
         var day = EPIC_IMAGE_URL_DEFAULT_DAY
         val imageDate = SimpleDateFormat(DATE_FORMAT).parse(imageDateStr)
         imageDate?.let {
-            var sdf = SimpleDateFormat(getString(R.string.dateFormatYear), Locale.US)
+            sdf = SimpleDateFormat(getString(R.string.dateFormatYear), Locale.US)
             year = sdf.format(it.time)
 
             sdf = SimpleDateFormat(getString(R.string.dateFormatMonth), Locale.US)
@@ -230,9 +286,8 @@ class EarthFragment : Fragment() {
     }
 
     private fun sendData() {
-        val sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+        sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
         sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
-        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
 
         cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
 
@@ -260,6 +315,7 @@ class EarthFragment : Fragment() {
                     val imageDate = serverResponseData.first().date
                     val imageFullPath = createImageUrl(imageUrl, imageDate)
                     imageViewEarth.load(imageFullPath)
+                    imageViewEarth.contentDescription = imageFullPath
                 } else {
                     earthDayToPhoto++
                     sendData()
