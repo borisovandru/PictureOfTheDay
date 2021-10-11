@@ -44,4 +44,8 @@
     <string name="buttonPrev"><![CDATA[<<]]></string>
     <string name="share">Поделиться</string>
     <string name="justButton">Просто кнопка</string>
+    <string name="tryText">Пытаюсь получить фото от: %1$s</string>
+    <string name="photo_from_mars">Photo from Mars</string>
+    <string name="swipe_indicator_active">swipe_indicator_active</string>
+    <string name="swipe_indicator_passive">swipe_indicator_passive</string>
 </resources>

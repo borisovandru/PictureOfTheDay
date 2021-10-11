@@ -12,8 +12,9 @@
 
         <ImageView
             android:id="@+id/imageViewEarth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bg_earth" />
@@ -26,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Всего" />
+            tools:text="Всегго" />
 
         <TextView
             android:id="@+id/dateEarthImage"
@@ -58,7 +59,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,12 +87,12 @@
 
     </LinearLayout>
 
-
     <FrameLayout
         android:id="@+id/transparent_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:background="@android:color/white"
         android:clickable="false"
         tools:background="@android:color/transparent" />
 
@@ -151,14 +151,13 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabEarth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:elevation="5dp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:elevation="5dp" />
 
         <ImageView
             android:id="@+id/plus_imageview"

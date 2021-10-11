@@ -3,9 +3,10 @@ package geekbarains.material.ui.view.planets
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,7 +53,6 @@ class EarthFragment : Fragment() {
     private var itemImage = 0
     private var earthDayToPhoto = 0
     private var serverResponseData = arrayListOf<EPICItem>()
-    private val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
     private lateinit var sdf: SimpleDateFormat
 
     private val viewModel: EarthFragmentViewModel by lazy {
@@ -66,12 +68,15 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
+        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
+        val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
         cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
         val itemDate: String = sdf.format(cal.time)
         dateEarthImage.text = getString(R.string.itemImageDate, itemDate)
 
-        sendData()
+        sendData(cal)
 
         buttonPrev.setOnClickListener { switchImage(-1) }
         buttonNext.setOnClickListener { switchImage(1) }
@@ -97,7 +102,7 @@ class EarthFragment : Fragment() {
 
     private fun setFAB() {
         setInitialState()
-        fab.setOnClickListener {
+        fabEarth.setOnClickListener {
             if (isExpanded) {
                 collapseFab()
             } else {
@@ -129,12 +134,54 @@ class EarthFragment : Fragment() {
         if (serverResponseData.isNotEmpty())
             dateEarthImage.text =
                 getString(R.string.itemImageDate, serverResponseData[itemImage].date)
-
         val imageUrl = serverResponseData[itemImage].image
         val imageDate = serverResponseData[itemImage].date
         val imageFullPath = createImageUrl(imageUrl, imageDate)
         imageViewEarth.load(imageFullPath)
         imageViewEarth.contentDescription = imageFullPath
+    }
+
+    private fun galleryAddPic(imagePath: String?, context: Context) {
+        imagePath?.let { path ->
+            val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            val f = File(path)
+            val contentUri: Uri = Uri.fromFile(f)
+            mediaScanIntent.data = contentUri
+            context.sendBroadcast(mediaScanIntent)
+        }
+    }
+
+    private fun saveImage(
+        image: Bitmap,
+        dateImage: String,
+        context: Context,
+        planetName: String,
+        itemImage: Int
+    ): String? {
+        var savedImagePath: String? = null
+        val imageFileName = "Image_from_${planetName}_${dateImage}_$itemImage.jpg"
+        val storageDir = context.cacheDir
+
+        var success = true
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs()
+        }
+        if (success) {
+            val imageFile = File(storageDir, imageFileName)
+            imageFile.createNewFile()
+            savedImagePath = imageFile.absolutePath
+            try {
+                val fOut: OutputStream = FileOutputStream(imageFile)
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                fOut.flush()
+                fOut.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            galleryAddPic(savedImagePath, context)
+        }
+        return savedImagePath
     }
 
     private fun shareImage(
@@ -145,9 +192,8 @@ class EarthFragment : Fragment() {
     ) {
         var imagePath: String?
 
-        val marsFragment = MarsFragment.newInstance()
         CoroutineScope(Dispatchers.IO).launch {
-            imagePath = marsFragment.saveImage(
+            imagePath = saveImage(
                 Glide.with(context)
                     .asBitmap()
                     .load(imageFileName) // sample image
@@ -207,6 +253,12 @@ class EarthFragment : Fragment() {
                     option_one_container.isClickable = true
                     option_one_container.setOnClickListener {
                         if (serverResponseData.isNotEmpty()) {
+                            val cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                            cal.add(
+                                Calendar.DAY_OF_YEAR,
+                                SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto
+                            )
+
                             shareImage(
                                 imageViewEarth.contentDescription.toString(),
                                 requireContext(),
@@ -260,7 +312,6 @@ class EarthFragment : Fragment() {
             })
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun createImageUrl(imageUrl: String, imageDateStr: String): String {
         var year = EPIC_IMAGE_URL_DEFAULT_YEAR
         var month = EPIC_IMAGE_URL_DEFAULT_MONTH
@@ -285,13 +336,8 @@ class EarthFragment : Fragment() {
                 EPIC_IMAGE_URL_OTHERS + BuildConfig.NASA_API_KEY
     }
 
-    private fun sendData() {
-        sdf = SimpleDateFormat(getString(R.string.dateFormat), Locale.US)
-        sdf.timeZone = TimeZone.getTimeZone(NASA_TIME_ZONE)
-
-        cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
-
-        val itemDate: String = sdf.format(cal.time)
+    private fun sendData(curDate: Calendar) {
+        val itemDate: String = sdf.format(curDate.time)
 
         viewModel.getData(itemDate)
             .observe(
@@ -317,8 +363,15 @@ class EarthFragment : Fragment() {
                     imageViewEarth.load(imageFullPath)
                     imageViewEarth.contentDescription = imageFullPath
                 } else {
+                    var cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                    cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
+
                     earthDayToPhoto++
-                    sendData()
+                    cal = Calendar.getInstance(TimeZone.getTimeZone(NASA_TIME_ZONE))
+                    cal.add(Calendar.DAY_OF_YEAR, SIGNAL_ARRIVAL_TIME_FROM_EARTH - earthDayToPhoto)
+                    val itemDate: String = sdf.format(cal.time)
+                    dateEarthImage.text = getString(R.string.tryText, itemDate)
+                    sendData(cal)
                 }
             }
             is AppState.Loading -> {
