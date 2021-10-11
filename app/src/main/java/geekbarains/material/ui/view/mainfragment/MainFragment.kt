@@ -1,6 +1,5 @@
 package geekbarains.material.ui.view.mainfragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
@@ -45,8 +44,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val canvas: Canvas
 
         webView.webViewClient = MyWebViewClient()
         webView.settings.javaScriptEnabled = true
@@ -128,24 +125,12 @@ class MainFragment : Fragment() {
                     description.text = serverResponseData.explanation
 
                     val spannableString = SpannableString(serverResponseData.explanation)
-                    val nasaStr = "PictureOfTheDay"
-                    var nasaStrItem = 0
-                    var nasaStrItemColor = false
+
                     serverResponseData.explanation?.let {
                         for (i in it.toCharArray().indices) {
-                            if (it.toCharArray()[i].uppercaseChar() == nasaStr.toCharArray()[nasaStrItem].uppercaseChar()) {
 
-                                if (nasaStrItem < 3) {
-                                    nasaStrItem++
-                                } else {
-                                    nasaStrItem = 0
-                                    nasaStrItemColor = !nasaStrItemColor
-                                }
-                                val itemColor = if (nasaStrItemColor) {
-                                    Color.CYAN
-                                } else {
-                                    Color.RED
-                                }
+                            if ("0123456789".contains(it.toCharArray()[i].uppercaseChar())) {
+                                val itemColor = Color.RED
                                 spannableString.setSpan(
                                     BackgroundColorSpan(itemColor),
                                     i,

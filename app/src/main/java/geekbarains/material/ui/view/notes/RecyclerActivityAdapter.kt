@@ -48,6 +48,7 @@ class RecyclerActivityAdapter(
     )
     private lateinit var parentLoc: ViewGroup
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         parentLoc = parent
@@ -211,11 +212,16 @@ class RecyclerActivityAdapter(
             editMode = !editMode
 
             if (editMode) {
+
                 itemView.editItemImageView.setImageResource(R.drawable.ic_save_24)
+
                 itemView.noteDescriptionTextView.visibility = View.INVISIBLE
                 itemView.noteDescriptionEditView.visibility = View.VISIBLE
+
                 itemView.spinner.visibility = View.VISIBLE
+
                 itemView.noteDescriptionEditView.setText(itemView.noteDescriptionTextView.text.toString())
+
                 itemView.noteImageView.visibility = View.INVISIBLE
                 itemView.spinner.visibility = View.VISIBLE
 
@@ -332,8 +338,6 @@ class RecyclerActivityAdapter(
     }
 
     companion object {
-        private const val TYPE_EARTH = 0
-        private const val TYPE_MARS = 1
         private const val TYPE_HEADER = 2
         private const val TYPE_PLANET = 3
     }

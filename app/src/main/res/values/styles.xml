@@ -79,7 +79,10 @@
         <item name="colorPrimaryVariant">@color/color_gray_light</item>
         <item name="android:colorBackground">@color/color_gray_light</item>
         <item name="colorOnBackground">@color/color_gray_light</item>
+    </style>
 
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_background_drawable</item>
     </style>
 
     <style name="Line">
