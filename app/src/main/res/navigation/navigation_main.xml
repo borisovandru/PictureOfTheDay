@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="geekbarains.material.view.mainfragment.MainFragment"
+        android:name="com.android.pictureoftheday.view.mainfragment.MainFragment"
         android:label="MainFragment" />
 </navigation>

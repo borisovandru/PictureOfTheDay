@@ -7,7 +7,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
     defaultConfig {
-        applicationId "geekbarains.material"
+        applicationId "com.android.pictureoftheday.material"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

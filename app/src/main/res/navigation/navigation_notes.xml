@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/notesFragment"
-        android:name="geekbarains.material.view.notes.NotesFragment"
+        android:name="com.android.pictureoftheday.view.notes.NotesFragment"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes" />
 </navigation>

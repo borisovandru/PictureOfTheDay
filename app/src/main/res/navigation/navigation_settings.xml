@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="geekbarains.material.view.settings.SettingsFragment"
+        android:name="com.android.pictureoftheday.view.settings.SettingsFragment"
         android:label="SettingsFragment" />
 </navigation>
