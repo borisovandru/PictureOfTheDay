@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".ui.PictureOfTheDay"
+        android:name=".PictureOfTheDay"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Splash">
-        <activity android:name=".ui.view.MainActivity" />
+        <activity android:name="geekbarains.material.view.MainActivity" />
         <activity
-            android:name=".ui.view.SplashActivity"
+            android:name="geekbarains.material.view.SplashActivity"
             android:configChanges="uiMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
